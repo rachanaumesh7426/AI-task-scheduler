@@ -1,0 +1,13 @@
+task_name,task_workload,task_sensitivity,task_type,server_name,server_speed,server_security,server_compromised,time_cost,risk_penalty,load_penalty,total_cost,method
+GPT-Infer-1,10,5,inference,Alpha,8,5,False,1.25,0.0,0.0,1.25,naive
+BatchJob-2,15,2,batch,Beta,12,2,False,1.25,0.0,0.0,1.25,naive
+Train-ResNet,25,3,training,Gamma,5,4,True,5.0,150.0,0.0,305.0,naive
+API-Request,5,4,inference,Delta,10,3,False,0.5,10.0,0.0,20.5,naive
+DataPipeline,18,1,batch,Alpha,8,5,False,2.25,0.0,0.0,2.25,naive
+SecureInfer,8,5,inference,Beta,12,2,False,0.6667,30.0,0.0,60.6667,naive
+GPT-Infer-1,10,5,inference,Alpha,8,5,False,1.25,0.0,0.0,1.25,optimized
+BatchJob-2,15,2,batch,Beta,12,2,False,1.25,0.0,0.0,1.25,optimized
+Train-ResNet,25,3,training,Delta,10,3,False,2.5,0.0,0.0,2.5,optimized
+API-Request,5,4,inference,Alpha,8,5,False,0.625,0.0,0.0,0.625,optimized
+DataPipeline,18,1,batch,Beta,12,2,False,1.5,0.0,0.0,1.5,optimized
+SecureInfer,8,5,inference,Alpha,8,5,False,1.0,0.0,0.0,1.0,optimized

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cloud Task Scheduler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">TASK<em>SCHED</em></span>
+    </div>
+    <nav class="nav">
+      <a href="#configure" class="nav-link">Configure</a>
+      <a href="#results" class="nav-link">Results</a>
+      <a href="#charts" class="nav-link">Analytics</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── Hero ──────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <h1>Intelligent Cloud<br/><span class="accent">Task Scheduler</span></h1>
+      <p class="hero-sub">Security-aware ILP optimisation for distributed AI workloads.<br/>Assign tasks. Minimise risk. Maximise throughput.</p>
+      <button class="btn btn-primary" id="btn-random">⚡ Load Random Scenario</button>
+      <button class="btn btn-ghost" id="btn-demo">📋 Load Demo</button>
+    </div>
+  </section>
+
+  <!-- ── Configure ─────────────────────────────────────────── -->
+  <section class="section" id="configure">
+    <div class="section-label">01 — CONFIGURE</div>
+
+    <!-- Weights -->
+    <div class="card weights-card">
+      <h2 class="card-title">Cost Weights</h2>
+      <div class="weights-grid">
+        <label class="weight-item">
+          <span class="weight-name">w₁ Time Cost</span>
+          <input type="range" id="w1" min="0" max="5" step="0.1" value="1.0" class="slider" />
+          <span class="weight-val" id="w1-val">1.0</span>
+        </label>
+        <label class="weight-item">
+          <span class="weight-name">w₂ Risk Penalty</span>
+          <input type="range" id="w2" min="0" max="5" step="0.1" value="2.0" class="slider" />
+          <span class="weight-val" id="w2-val">2.0</span>
+        </label>
+        <label class="weight-item">
+          <span class="weight-name">w₃ Load Penalty</span>
+          <input type="range" id="w3" min="0" max="5" step="0.1" value="0.5" class="slider" />
+          <span class="weight-val" id="w3-val">0.5</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Tasks and Servers side-by-side -->
+    <div class="two-col">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Tasks</h2>
+          <button class="btn btn-sm" id="btn-add-task">+ Add</button>
+        </div>
+        <div id="tasks-list" class="entity-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Servers</h2>
+          <button class="btn btn-sm" id="btn-add-server">+ Add</button>
+        </div>
+        <div id="servers-list" class="entity-list"></div>
+      </div>
+
+    </div>
+
+    <div class="run-bar">
+      <button class="btn btn-primary btn-lg" id="btn-run">▶ Run Scheduler</button>
+      <span id="run-status" class="run-status"></span>
+    </div>
+  </section>
+
+  <!-- ── Results ───────────────────────────────────────────── -->
+  <section class="section hidden" id="results">
+    <div class="section-label">02 — RESULTS</div>
+
+    <div class="kpi-row" id="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">Naive Cost</div>
+        <div class="kpi-val" id="kpi-naive">—</div>
+      </div>
+      <div class="kpi-card highlight">
+        <div class="kpi-label">Optimised Cost</div>
+        <div class="kpi-val" id="kpi-opt">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Improvement</div>
+        <div class="kpi-val green" id="kpi-impr">—</div>
+      </div>
+    </div>
+
+    <!-- Assignment tables -->
+    <div class="two-col">
+      <div class="card">
+        <h2 class="card-title">Naive Assignments</h2>
+        <div id="table-naive" class="table-wrap"></div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Optimised Assignments</h2>
+        <div id="table-opt" class="table-wrap"></div>
+      </div>
+    </div>
+
+    <!-- Export -->
+    <div class="export-bar">
+      <button class="btn btn-ghost" id="btn-export-csv">⬇ CSV</button>
+      <button class="btn btn-ghost" id="btn-export-json">⬇ JSON</button>
+    </div>
+  </section>
+
+  <!-- ── Charts ────────────────────────────────────────────── -->
+  <section class="section hidden" id="charts">
+    <div class="section-label">03 — ANALYTICS</div>
+    <div class="chart-grid" id="chart-grid">
+      <div class="chart-card"><div class="chart-title">Cost Breakdown</div><img id="chart-breakdown" class="chart-img" /></div>
+      <div class="chart-card"><div class="chart-title">Total Cost</div><img id="chart-total" class="chart-img" /></div>
+      <div class="chart-card"><div class="chart-title">Server Utilisation</div><img id="chart-util" class="chart-img" /></div>
+      <div class="chart-card"><div class="chart-title">Risk Heatmap</div><img id="chart-heat" class="chart-img" /></div>
+    </div>
+
+    <!-- Batch simulation -->
+    <div class="card batch-card">
+      <h2 class="card-title">Batch Simulation</h2>
+      <div class="batch-controls">
+        <label>Runs <input type="number" id="batch-runs" value="20" min="5" max="100" class="num-input" /></label>
+        <label>Tasks <input type="number" id="batch-tasks" value="8" min="2" max="20" class="num-input" /></label>
+        <label>Servers <input type="number" id="batch-servers" value="4" min="2" max="10" class="num-input" /></label>
+        <button class="btn btn-primary" id="btn-batch">Run Batch</button>
+      </div>
+      <div id="batch-results" class="batch-results hidden"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Task modal ──────────────────────────────────────────── -->
+<div id="modal-overlay" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Add Task</h3>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

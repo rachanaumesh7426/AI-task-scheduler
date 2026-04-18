@@ -1,0 +1,96 @@
+{
+  "method": "naive",
+  "solver_status": "Feasible (Naive)",
+  "total_cost": 390.9167,
+  "assignments": [
+    {
+      "task_name": "GPT-Infer-1",
+      "task_workload": 10,
+      "task_sensitivity": 5,
+      "task_type": "inference",
+      "server_name": "Alpha",
+      "server_speed": 8,
+      "server_security": 5,
+      "server_compromised": false,
+      "time_cost": 1.25,
+      "risk_penalty": 0.0,
+      "load_penalty": 0.0,
+      "total_cost": 1.25
+    },
+    {
+      "task_name": "BatchJob-2",
+      "task_workload": 15,
+      "task_sensitivity": 2,
+      "task_type": "batch",
+      "server_name": "Beta",
+      "server_speed": 12,
+      "server_security": 2,
+      "server_compromised": false,
+      "time_cost": 1.25,
+      "risk_penalty": 0.0,
+      "load_penalty": 0.0,
+      "total_cost": 1.25
+    },
+    {
+      "task_name": "Train-ResNet",
+      "task_workload": 25,
+      "task_sensitivity": 3,
+      "task_type": "training",
+      "server_name": "Gamma",
+      "server_speed": 5,
+      "server_security": 4,
+      "server_compromised": true,
+      "time_cost": 5.0,
+      "risk_penalty": 150.0,
+      "load_penalty": 0.0,
+      "total_cost": 305.0
+    },
+    {
+      "task_name": "API-Request",
+      "task_workload": 5,
+      "task_sensitivity": 4,
+      "task_type": "inference",
+      "server_name": "Delta",
+      "server_speed": 10,
+      "server_security": 3,
+      "server_compromised": false,
+      "time_cost": 0.5,
+      "risk_penalty": 10.0,
+      "load_penalty": 0.0,
+      "total_cost": 20.5
+    },
+    {
+      "task_name": "DataPipeline",
+      "task_workload": 18,
+      "task_sensitivity": 1,
+      "task_type": "batch",
+      "server_name": "Alpha",
+      "server_speed": 8,
+      "server_security": 5,
+      "server_compromised": false,
+      "time_cost": 2.25,
+      "risk_penalty": 0.0,
+      "load_penalty": 0.0,
+      "total_cost": 2.25
+    },
+    {
+      "task_name": "SecureInfer",
+      "task_workload": 8,
+      "task_sensitivity": 5,
+      "task_type": "inference",
+      "server_name": "Beta",
+      "server_speed": 12,
+      "server_security": 2,
+      "server_compromised": false,
+      "time_cost": 0.6667,
+      "risk_penalty": 30.0,
+      "load_penalty": 0.0,
+      "total_cost": 60.6667
+    }
+  ],
+  "metadata": {
+    "w1": 1.0,
+    "w2": 2.0,
+    "w3": 0.5
+  }
+}
